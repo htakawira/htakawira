@@ -5,7 +5,4 @@ services:
     network_mode: host
     volumes:
       - .:/workspace:ro
-    command: >
-      bash -c "pip install -q markdown &&
-      mkdir -p /srv && python -c \"import markdown,pathlib;b=markdown.markdown(pathlib.Path('README.md').read_text(encoding='utf-8'));pathlib.Path('/srv/index.html').write_text('<!doctype html><meta charset=utf-8><title>htakawira</title><body style=\\\"font-family:sans-serif;max-width:720px;margin:40px auto;line-height:1.6\\\">'+b,encoding='utf-8')\" &&
-      python -m http.server 3000 --directory /srv"
+    command: python -m http.server 3000 --directory /workspace/site
