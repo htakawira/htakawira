@@ -1,9 +1,6 @@
 <?php
-// Handles the Contact Us form and emails the client's details to the chosen branch.
-$recipients = [
-    'harare'   => 'creditcontrol@ericom.co.zw',
-    'bulawayo' => 'creditcontrol@byo.ericom.co.zw',
-];
+// Handles the Contact Us form and emails the client's details to Ericom.
+$to = 'patrick.cox@ericom.co.zw';
 $from = 'noreply@ericom.co.zw';
 
 function back($status) {
@@ -24,24 +21,24 @@ $name    = clean('name', 100);
 $company = clean('company', 100);
 $email   = clean('email', 150);
 $phone   = clean('phone', 30);
-$branch  = clean('branch', 20);
+$address = clean('address', 250);
 $message = mb_substr(trim((string)($_POST['message'] ?? '')), 0, 3000);
 
-if ($name === '' || $phone === '' || $message === '' || !filter_var($email, FILTER_VALIDATE_EMAIL) || !isset($recipients[$branch])) {
+if ($company === '' || $name === '' || $address === '' || $phone === '' || $message === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     back('error');
 }
 
 $body = "New enquiry from the Ericom Communications website\n\n"
-      . "Name: $name\n"
-      . "Company: $company\n"
+      . "Company Name: $company\n"
+      . "Customer Name: $name\n"
       . "Email: $email\n"
-      . "Phone: $phone\n"
-      . "Branch: " . ucfirst($branch) . "\n\n"
+      . "Phone Number: $phone\n"
+      . "Address: $address\n\n"
       . "Message:\n$message\n";
 
 $headers = "From: Ericom Website <$from>\r\n"
          . "Reply-To: $email\r\n"
          . "Content-Type: text/plain; charset=UTF-8\r\n";
 
-$ok = mail($recipients[$branch], "Website enquiry from $name", $body, $headers);
+$ok = mail($to, "Website enquiry from $name ($company)", $body, $headers);
 back($ok ? 'sent' : 'error');
