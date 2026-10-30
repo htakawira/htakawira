@@ -1,5 +1,5 @@
 <?php
-// Handles the Contact Us form and emails the client's details to Ericom.
+// Handles the Contact Us form and emails the client's details to Ericom Communications.
 $to = 'patrick.cox@ericom.co.zw';
 $from = 'noreply@ericom.co.zw';
 
@@ -36,7 +36,7 @@ $body = "New enquiry from the Ericom Communications website\n\n"
       . "Address: $address\n\n"
       . "Message:\n$message\n";
 
-$headers = "From: Ericom Website <$from>\r\n"
+$headers = "From: Ericom Communications Website <$from>\r\n"
          . "Reply-To: $email\r\n"
          . "Content-Type: text/plain; charset=UTF-8\r\n";
 
